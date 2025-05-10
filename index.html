@@ -1114,6 +1114,38 @@
                 grid-template-columns: repeat(2, 1fr);
             }
         }
+        @media (max-width: 768px) {
+            nav {
+                position: relative;
+            }
+            
+            .language-switcher {
+                display: flex;
+                gap: 0.5rem;
+                margin: 0;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                z-index: 100;
+                background-color: rgba(17, 17, 17, 0.9);
+                padding: 8px;
+                border-radius: 8px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .lang-btn {
+                padding: 4px 6px;
+            }
+            
+            .logo {
+                font-size: 1.2rem;
+            }
+            
+            .contact-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
         
         @media (max-width: 768px) {
             .main-heading {
