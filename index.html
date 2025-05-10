@@ -1,0 +1,1387 @@
+
+        
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kovács Gergő - Django Fejlesztő</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --background: #111111;
+            --card-bg: #1a1a1a;
+            --primary: #28b995;
+            --primary-hover: #33d3ad;
+            --primary-transparent: rgba(40, 185, 149, 0.1);
+            --text: #ffffff;
+            --text-secondary: #9e9e9e;
+            --border: #2a2a2a;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Header & Navigation */
+        header {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: rgba(17, 17, 17, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.94rem;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--text);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .contact-btn {
+            background-color: var(--primary);
+            color: var(--text);
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.94rem;
+        }
+        
+        .contact-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(40, 185, 149, 0.2);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 7rem 0 8rem;
+            display: flex;
+            justify-content: center;
+            min-height: 85vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -300px;
+            right: -300px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(40, 185, 149, 0.05) 0%, rgba(40, 185, 149, 0) 70%);
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            left: -200px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(40, 185, 149, 0.03) 0%, rgba(40, 185, 149, 0) 70%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .qualification-cards {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+        
+        .qualification-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 0.7rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .qualification-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .qualification-card i {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+        
+        .title-section {
+            margin-bottom: 2rem;
+        }
+        
+        .main-heading {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            letter-spacing: -1px;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary);
+            color: var(--text);
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .primary-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .primary-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 185, 149, 0.2);
+        }
+        
+        .primary-btn:hover::before {
+            transform: translateX(0);
+        }
+        
+        .primary-btn i {
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .primary-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .secondary-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: transparent;
+            color: var(--text);
+            padding: 0.8rem 1.8rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .secondary-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--primary-transparent);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .secondary-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .secondary-btn:hover::before {
+            transform: translateX(0);
+        }
+        
+        .secondary-btn i {
+            font-size: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .secondary-btn span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .active-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 2.5rem;
+            color: var(--text-secondary);
+            font-size: 0.94rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-transparent);
+            border-radius: 4px;
+            width: fit-content;
+            transition: all 0.3s ease;
+        }
+        
+        .active-status:hover {
+            background-color: rgba(40, 185, 149, 0.15);
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            position: relative;
+        }
+        
+        .status-dot::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: rgba(40, 185, 149, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            70% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+        }
+        
+        /* Expertise Section */
+        .expertise {
+            padding: 6rem 0;
+            background-color: #0e0e0e;
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .expertise::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(40, 185, 149, 0) 0%, rgba(40, 185, 149, 0.3) 50%, rgba(40, 185, 149, 0) 100%);
+        }
+        
+        .section-header {
+            margin-bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .expertise-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary) 0%, rgba(40, 185, 149, 0.3) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+        
+        .expertise-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .expertise-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .expertise-card h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            font-weight: 600;
+            font-family: var(--font-heading);
+        }
+        
+        .expertise-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+        
+        .expertise-techs {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .tech-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: rgba(40, 185, 149, 0.1);
+            color: var(--primary);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .tech-tag:hover {
+            background-color: rgba(40, 185, 149, 0.2);
+        }
+        
+        /* Projects Section */
+        .projects {
+            padding: 5rem 0;
+            background-color: #121212;
+            border-top: 1px solid var(--border);
+        }
+        
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        
+        .project-card {
+            display: flex;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .project-logo {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--background);
+            padding: 1.5rem;
+        }
+        
+        .project-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .project-info {
+            padding: 2rem;
+            flex: 1;
+        }
+        
+        .project-info h3 {
+            color: var(--text);
+            font-size: 1.25rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        
+        .project-link:hover {
+            color: var(--primary-hover);
+        }
+/* Language Switcher with Flags and Codes */
+.language-switcher {
+    display: flex;
+    gap: 0.8rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    background-color: rgba(26, 26, 26, 0.5);
+    border: 1px solid var(--border);
+}
+
+.lang-btn.active {
+    background-color: var(--primary-transparent);
+    border-color: var(--primary);
+}
+
+.flag-icon {
+    width: 20px;
+    height: 15px;
+    object-fit: cover;
+    border-radius: 2px;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+}
+
+.lang-code {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.lang-btn.active .lang-code {
+    color: var(--primary);
+}
+
+.lang-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .language-switcher {
+        position: absolute;
+        top: 1.2rem;
+        right: 5.5rem;
+    }
+}
+        
+        /* Contact Section */
+        .contact {
+            padding: 6rem 0;
+            background-color: #0e0e0e;
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            right: 0;
+            bottom: 0;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(40, 185, 149, 0.03) 0%, transparent 70%);
+            z-index: 0;
+            border-radius: 50%;
+        }
+        
+        .contact::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(40, 185, 149, 0.02) 0%, transparent 70%);
+            z-index: 0;
+            border-radius: 50%;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-info {
+            color: var(--text-secondary);
+        }
+        
+        .contact-info h2 {
+            font-size: 2.5rem;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-family: var(--font-heading);
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .contact-info h2::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+        
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-method:hover {
+            transform: translateX(5px);
+        }
+        
+        .contact-method i {
+            color: var(--primary);
+            font-size: 1.2rem;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(40, 185, 149, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-method:hover i {
+            background-color: rgba(40, 185, 149, 0.2);
+        }
+        
+        .contact-method a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 1.05rem;
+        }
+        
+        .contact-method a:hover {
+            color: var(--primary);
+        }
+        
+        .contact-method span {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+        }
+        
+        .contact-form {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-form:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .contact-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 3px;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary) 0%, rgba(40, 185, 149, 0.3) 100%);
+            transition: width 0.5s ease;
+        }
+        
+        .contact-form:hover::before {
+            width: 100%;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.7rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.94rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(40, 185, 149, 0.1);
+        }
+        
+        textarea.form-input {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--text);
+            padding: 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(40, 185, 149, 0.2);
+        }
+        
+        .submit-btn:hover::before {
+            transform: translateX(0);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            background-color: #0a0a0a;
+            color: var(--text-secondary);
+            text-align: center;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 50%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(40, 185, 149, 0) 0%, rgba(40, 185, 149, 0.3) 50%, rgba(40, 185, 149, 0) 100%);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-logo:hover {
+            color: var(--primary);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .footer-link:hover::after {
+            width: 100%;
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        .projects {
+            padding: 6rem 0;
+            background-color: var(--background);
+            border-top: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .projects::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            width: 60%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(40, 185, 149, 0) 0%, rgba(40, 185, 149, 0.3) 50%, rgba(40, 185, 149, 0) 100%);
+        }
+        
+        .projects-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        
+        .project-card {
+            display: flex;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+        }
+        
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.5s ease;
+        }
+        
+        .project-card:hover::before {
+            width: 100%;
+        }
+        
+        .project-logo {
+            min-width: 150px;
+            width: 150px;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover .project-logo {
+            background-color: rgba(40, 185, 149, 0.05);
+        }
+        
+        .project-logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(40, 185, 149, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .project-logo::before {
+            opacity: 1;
+        }
+        
+        .project-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(30%);
+            transition: all 0.3s ease;
+        }
+        
+        .project-card:hover .project-logo img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        
+        .project-info {
+            padding: 2.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .project-info h3 {
+            color: var(--text);
+            font-size: 1.35rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            transition: color 0.3s ease;
+        }
+        
+        .project-card:hover .project-info h3 {
+            color: var(--primary);
+        }
+        
+        .project-info p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            width: fit-content;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .project-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .project-link:hover {
+            color: var(--primary-hover);
+            transform: translateX(5px);
+        }
+        
+        .project-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .expertise-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .main-heading {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 2.2rem;
+            }
+            
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .project-card {
+                flex-direction: column;
+            }
+            
+            .project-logo {
+                width: 100%;
+                height: auto;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<header>
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">KG-DIGITAL</a>
+            <div class="nav-links">
+                <a href="#expertise">Technológiák</a>
+                <a href="#projects">Projektek</a>
+                <a href="#contact">Kapcsolat</a> 
+            </div>
+            <div class="language-switcher">
+    <a href="/" class="lang-btn active">
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/hu.svg" alt="Magyar" class="flag-icon">
+        <span class="lang-code">HU</span>
+    </a>
+    <a href="/en/" class="lang-btn">
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/gb.svg" alt="English" class="flag-icon">
+        <span class="lang-code">EN</span>
+    </a>
+    <a href="/es/" class="lang-btn">
+        <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/flags/4x3/es.svg" alt="Español" class="flag-icon">
+        <span class="lang-code">ES</span>
+    </a>
+</div>
+            <a href="#contact" class="contact-btn">Kapcsolat</a>
+        </nav>
+    </div>
+</header>
+    
+    <section id="about" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="qualification-cards">
+                    <div class="qualification-card">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Django Fejlesztés</span>
+                    </div>
+                </div>
+                
+                <div class="title-section">
+                    <h1 class="main-heading">Web Fejlesztés</h1>
+                    <h2 class="subtitle">és Üzleti Növekedés</h2>
+                </div>
+                
+                <p class="description">
+                    Célom, hogy modern technológiák segítségével olyan hatékony weboldalt készítsek Önnek vagy cégének amely segíti az üzlet hosszútávú növekedését.                </p>
+                
+                <div class="hero-cta">
+                    <a href="#expertise" class="primary-btn">
+                        <span>Technológiák</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="secondary-btn">
+                        <span>Kapcsolatfelvétel</span>
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                
+                <div class="active-status">
+                    <div class="status-dot"></div>
+                    <span>Jelenleg elérhető új projektekre</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="expertise" class="expertise">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Főbb Technológiák</h2>
+            </div>
+            
+            <div class="expertise-grid">
+                <div class="expertise-card">
+                    <h3>Weboldal készítés</h3>
+                    <p>Skálázható webes alkalmazások tervezése és fejlesztése Django keretrendszerrel. RESTful API-k létrehozása Django REST Framework segítségével, adatbázis-tervezés és optimalizálás. Kissebb portfolió oldalaktól komplex webshopokig.</p>
+                    <div class="expertise-techs">
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">Fast API</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">MySQL</span>
+                    </div>
+                </div>
+                
+                <div class="expertise-card">
+                    <h3>Átgondolt Frontend Megoldások</h3>
+                    <p>Modern és reszponzív felhasználói felületek készítése HTML5, CSS3 és JavaScript segítségével. Frontend keretrendszerek (Bootstrap, Tailwind CSS) használata a hatékony fejlesztéshez.</p>
+                    <div class="expertise-techs">
+                        <span class="tech-tag">HTML5</span>
+                        <span class="tech-tag">CSS3</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">Bootstrap</span>
+                        <span class="tech-tag">Tailwind</span>
+                    </div>
+                </div>
+                
+                <div class="expertise-card">
+                    <h3>DevOps & Deployment</h3>
+                    <p>Alkalmazások telepítése és karbantartása szerveren (Docker, DigitalOcean). Verziókezelés Git segítségével. Egyedi igények szerint saját szerver konfiguráció, optimalizáció és további mérnöki megoldások.</p>
+                    <div class="expertise-techs">
+                        <span class="tech-tag">Docker</span>
+                        <span class="tech-tag">Git</span>
+                        <span class="tech-tag">Digital Ocean</span>
+                        <span class="tech-tag">Nginx</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Korábbi Fontosabb Projektek</h2>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-logo">
+                        <img src="/api/placeholder/150/150" alt="TechStart Logo">
+                    </div>
+                    <div class="project-info">
+                        <h3>Tufa Machine</h3>
+                        <p>Egy régi weboldal felújítása, modernizálása a kétnyelvűség megtartása mellett. Újragondolt kategóriák és termékfelosztások a menüpontokba. A galéria mellett a közösségi médián könnyen megoszhatóság és plusz weboldalforgalom érdekében egy blogot is került az oldalra. Szükséges admin felület, termékek feltöltésére és modosítására valamint a bejegyzések létrehozására.</p>
+                        <a href="https://techstart.hu" class="project-link" target="_blank">
+                            <i class="fas fa-globe"></i> <span>techstart.hu</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <div class="project-logo">
+                        <img src="/api/placeholder/150/150" alt="EcoShop Logo">
+                    </div>
+                    <div class="project-info">
+                        <h3>Hamarosan...</h3>
+                        <p>Ha érdekel, vedd fel velem a kapcsolatot és ha megengeded ide kerülhet az új weboldalad!</p>
+                        <a href="https://tufa.hu" class="project-link" target="_blank">
+                            <i class="fas fa-globe"></i> <span>tufa.hu</span>
+                        </a>
+                    </div>
+                </div>
+                <!--
+                <div class="project-card">
+                    <div class="project-logo">
+                        <img src="/api/placeholder/150/150" alt="EventHub Logo">
+                    </div>
+                    <div class="project-info">
+                        <h3>EventHub Eseménykezelő</h3>
+                        <p>Online eseménykezelő platform fejlesztése, amely lehetővé teszi az események szervezését, jegyértékesítést és résztvevők kezelését. API integrációk közösségi média platformokkal. A rendszer képes kezelni mind a virtuális, mind a fizikai eseményeket, statisztikákkal és részletes elemzésekkel.</p>
+                        <a href="https://eventhub.hu" class="project-link" target="_blank">
+                            <i class="fas fa-globe"></i> <span>eventhub.hu</span>
+                        </a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+    
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Kapcsolatfelvétel</h2>
+                    <p>Ha kérdésed van, vagy beszélnél egy projektről, keress bátran az alábbi elérhetőségeken vagy az űrlap segítségével.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:info@kgdigital.hu">info@kgdigital.hu</a>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Veszprém, Magyarország</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Név</label>
+                        <input type="text" id="name" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Üzenet</label>
+                        <textarea id="message" class="form-input" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Üzenet küldése</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 kgdigital.hu | Minden jog fenntartva</p>
+        </div>
+    </footer>
+
+    <script>
+        // Egyszerű kapcsolati űrlap kezelés
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            // Itt lenne a valós küldési logika
+            // A Djangos implementációban ezt egy form view kezelné
+            
+            alert('Köszönjük a megkeresést! Hamarosan felvesszük veled a kapcsolatot.');
+            this.reset();
+        });
+        
+        // Smooth scroll a belső linkekhez
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
